@@ -1,0 +1,17 @@
+[package]
+name = "async-metronome-attributes"
+version = "0.1.0"
+authors = ["Alexey Aristov <aav@acm.org>"]
+edition = "2018"
+description = "Attribute macro for async-metronome"
+license = "Apache-2.0/MIT"
+repository = "https://github.com/suprematic/async-metronome-attributes"
+keywords = ["tests", "unit", "assert", "futures", "async"]
+categories = ["development-tools", "development-tools::testing", "asynchronous", "concurrency"]
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { version = "1.0", features = ["full"] }
+quote = "1.0"
