@@ -1,8 +1,10 @@
 use proc_macro::TokenStream;
-use quote::{quote, quote_spanned};
+use proc_macro_error::proc_macro_error;
+use quote::quote;
 use syn::spanned::Spanned;
 
 #[proc_macro_attribute]
+#[proc_macro_error]
 pub fn test(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let input = syn::parse_macro_input!(item as syn::ItemFn);
 
@@ -13,9 +15,7 @@ pub fn test(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let vis = &input.vis;
 
     if input.sig.asyncness.is_none() {
-        return TokenStream::from(quote_spanned! { input.span() =>
-            compile_error!("the function must be declared as 'async'"),
-        });
+        proc_macro_error::abort!(input.span(), "the function must be declared as 'async'");
     }
 
     let result = quote! {
